@@ -26,7 +26,7 @@ public class Game {
         return imaginedNumber;
     }
 
-    public void generateImaginedNumber(int difficulty) {//генерируем псевдослучайное число
+    public void generateImaginedNumber(/*int difficulty*/) {//генерируем псевдослучайное число
 
         if (difficulty == 1)
             this.imaginedNumber = (int)Math.random() * 10;
