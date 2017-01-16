@@ -12,7 +12,18 @@ import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 */
 public class Main {
-     public static void main(String[] args) throws Exception { //убрать проброс
+
+    public static boolean isInteger(String s){
+        try{
+            Integer.parseInt(s);
+            return true;
+        }
+        catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static void main(String[] args) throws Exception { //убрать проброс
 
     /*    ApiContextInitializer.init();
 
@@ -30,35 +41,56 @@ public class Main {
     System.out.print("Введите имя: ");
     String playerName = reader.readLine();
 
-    System.out.print("Введите сложность: ");
-    int difficulty = Integer.parseInt(reader.readLine());
+    System.out.print("Введите сложность: "); //надо число от 1 до 3!
+    int difficulty=0;
+    String str_difficulty;
+        /*остановился на вводе уровня сложности*/
+    do {
+        str_difficulty = reader.readLine();
+        if(isInteger(str_difficulty)) {
+            int d = Integer.parseInt(str_difficulty);
+            if(d == 1 || d == 2 || d == 3)
+                difficulty = Integer.parseInt(str_difficulty);
+            else System.out.println();
+        }
+        else System.out.print("It's not a number! Enter a digit!\nВведите сложность: ");
+
+    } while(!isInteger(str_difficulty));
+
+
     int playerNumber;
-    int resultOfGame;
+    int resultOfGame=2; // подумать что сделать с инициализацией
     Player player = new Player(playerName);
 
     Game game = new Game();
     game.setDifficulty(difficulty);
     game.setPlayer(player);
     game.generateImaginedNumber();
-
-    while(true)
+    System.out.println(game.getImaginedNumber());
+    while(resultOfGame != 0)
     {
-        System.out.print("Введите число: ");
+        System.out.print("Введите целое число: ");
         playerNumber = Integer.parseInt(reader.readLine());
         resultOfGame = game.gamePlay(playerNumber);
-        if(resultOfGame)
-    };
+        if(resultOfGame == -1) System.out.println("Я загадал меньше! Повторите попытку.");
+        else if(resultOfGame == 1) System.out.println("Я загадал больше! Повторите попытку.");
+    }
 
+         System.out.println("You're win! "+ game.getImaginedNumber());
+
+/*
     Player pl1 = new Player("1");
     Player pl2 = new Player("2");
     Player pl3 = new Player("3");
     Player pl4 = new Player("4");
-    
+
     System.out.println(
         pl1.getNickName() + " : " + pl1.getID() + "; " + 
         pl2.getNickName() + " : " + pl2.getID() + "; " + 
         pl3.getNickName() + " : " + pl3.getID() + "; " + 
         pl4.getNickName() + " : " + pl4.getID() + "; " );
+        */
     }
+
 
 }

@@ -29,12 +29,12 @@ public class Game {
     public void generateImaginedNumber(/*int difficulty*/) {//генерируем псевдослучайное число
 
         if (difficulty == 1)
-            this.imaginedNumber = (int)Math.random() * 10;
+            this.imaginedNumber = (int)(Math.random() * 10);
         else {
             if (difficulty == 2)
-                this.imaginedNumber = (int)Math.random() * 100;
+                this.imaginedNumber = (int)(Math.random() * 100);
             else
-                this.imaginedNumber = (int)Math.random() * 1000;
+                this.imaginedNumber = (int)(Math.random() * 1000);
         }
     }
 
