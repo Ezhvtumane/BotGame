@@ -42,20 +42,22 @@ public class Main {
     String playerName = reader.readLine();
 
     System.out.print("Введите сложность: "); //надо число от 1 до 3!
+    
     int difficulty=0;
+    boolean isNum=false;
     String str_difficulty;
         /*остановился на вводе уровня сложности*/
     do {
         str_difficulty = reader.readLine();
         if(isInteger(str_difficulty)) {
             int d = Integer.parseInt(str_difficulty);
-            if(d == 1 || d == 2 || d == 3)
-                difficulty = Integer.parseInt(str_difficulty);
-            else System.out.println();
+            if(d == 1 || d == 2 || d == 3) {
+                difficulty = Integer.parseInt(str_difficulty); isNum=true;}
+            else System.out.println("Need to enter a digit from 1 to 3");
         }
         else System.out.print("It's not a number! Enter a digit!\nВведите сложность: ");
 
-    } while(!isInteger(str_difficulty));
+    } while(!isInteger(str_difficulty) || !isNum);
 
 
     int playerNumber;
@@ -72,8 +74,8 @@ public class Main {
         System.out.print("Введите целое число: ");
         playerNumber = Integer.parseInt(reader.readLine());
         resultOfGame = game.gamePlay(playerNumber);
-        if(resultOfGame == -1) System.out.println("Я загадал меньше! Повторите попытку.");
-        else if(resultOfGame == 1) System.out.println("Я загадал больше! Повторите попытку.");
+        if(resultOfGame == -1) System.out.println("Я загадал больше! Повторите попытку.");
+        else if(resultOfGame == 1) System.out.println("Я загадал меньше! Повторите попытку.");
     }
 
          System.out.println("You're win! "+ game.getImaginedNumber());
