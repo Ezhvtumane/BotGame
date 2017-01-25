@@ -6,7 +6,15 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 public class MartianBot extends TelegramLongPollingBot {
-    
+    /*
+     * 25.01.2017
+     * Надо написать метод, который будет пробрасывать сообщения пользователя в main.
+     * 
+     * И наоборот.
+     * 
+     * Игра в main, в боте просто обработка команд.
+     * 
+     */
      @Override
     public void onUpdateReceived(Update update) {
          // We check if the update has a message and the message has text
