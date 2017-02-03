@@ -46,7 +46,7 @@ public class Main {
     int difficulty=0;
     boolean isNum=false;
     String str_difficulty;
-        /*остановился на вводе уровня сложности*/
+
     do {
         str_difficulty = reader.readLine();
         if(isInteger(str_difficulty)) {
