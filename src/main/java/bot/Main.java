@@ -6,12 +6,12 @@ import bot.game.Player;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-/*
+
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
-*/
-public class Main {
+
+public class Main implements Observer{
 
     public static boolean isInteger(String s){
         try{
@@ -25,7 +25,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception { //убрать проброс
 
-    /*    ApiContextInitializer.init();
+        ApiContextInitializer.init();
 
         TelegramBotsApi botsApi = new TelegramBotsApi();
 
@@ -35,11 +35,12 @@ public class Main {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-    }*/
+
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     System.out.print("Введите имя: ");
     String playerName = reader.readLine();
+    //String playerName = Main.
 
     System.out.print("Введите сложность: "); //надо число от 1 до 3!
     
@@ -95,4 +96,8 @@ public class Main {
     }
 
 
+    @Override
+    public String update(String message) {
+        return message;
+    }
 }

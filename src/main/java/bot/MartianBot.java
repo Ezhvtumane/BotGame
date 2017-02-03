@@ -1,11 +1,39 @@
 package bot;
 
+import bot.game.Observable;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
-public class MartianBot extends TelegramLongPollingBot {
+import java.io.*;
+import java.util.List;
+
+public class MartianBot extends TelegramLongPollingBot implements Observable  {
+
+    private List<Observer> observers;
+    private String msg;
+    private String botName;
+    private String botToken;
+
+
+    public MartianBot() {
+        File f = new File("creds");
+        try{
+            FileReader reader = new FileReader(f);
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            botName = bufferedReader.readLine();
+            botToken = bufferedReader.readLine();
+        }
+        catch (FileNotFoundException ex) {
+            System.out.println("File not found ex.");
+            System.out.println(ex.getMessage());}
+        catch (IOException ex) {
+            System.out.println("Can't read a file.");
+            System.out.println(ex.getMessage());
+        }
+    }
+
     /*
      * 25.01.2017
      * Надо написать метод, который будет пробрасывать сообщения пользователя в main.
@@ -19,6 +47,7 @@ public class MartianBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
          // We check if the update has a message and the message has text
     if (update.hasMessage() && update.getMessage().hasText()) {
+
         SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
                 .setChatId(update.getMessage().getChatId())
                 .setText("You told: \"" + update.getMessage().getText()+"\"");
@@ -39,12 +68,27 @@ public class MartianBot extends TelegramLongPollingBot {
     @Override
     public String getBotUsername() {
 
-        return "martian_bot";
+        return botName;
     }
 
     @Override
     public String getBotToken() {
         
-        return "170619718:AAHU66vGV8xLQ60qXgPKD0KO8ezLWBl7-gQ";
+        return botToken;
+    }
+
+    @Override
+    public void registerObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObserver(Observer o) {
+        for(Observer observer: observers) observer.update(msg);
     }
 }
