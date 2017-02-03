@@ -1,4 +1,4 @@
-package bot.game;
+package bot;
 
 import bot.Observer;
 
