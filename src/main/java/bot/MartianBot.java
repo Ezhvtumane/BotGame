@@ -14,23 +14,33 @@ public class MartianBot extends TelegramLongPollingBot implements Observable  {
     private String msg;
     private String botName;
     private String botToken;
+    private FileReader reader;
+    private BufferedReader bufferedReader;
 
 
     public MartianBot() {
         File f = new File("creds");
+
         try{
-            FileReader reader = new FileReader(f);
-            BufferedReader bufferedReader = new BufferedReader(reader);
+            reader = new FileReader(f);
+            bufferedReader = new BufferedReader(reader);
             botName = bufferedReader.readLine();
             botToken = bufferedReader.readLine();
+            bufferedReader.close();
+            reader.close();
         }
         catch (FileNotFoundException ex) {
+            try{bufferedReader.close();
+            reader.close();} catch (IOException exx){};
             System.out.println("File not found ex.");
             System.out.println(ex.getMessage());}
         catch (IOException ex) {
+            try{bufferedReader.close();
+            reader.close();} catch (IOException exx){};
             System.out.println("Can't read a file.");
             System.out.println(ex.getMessage());
         }
+        
     }
 
     /*
