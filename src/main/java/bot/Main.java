@@ -6,10 +6,12 @@ import bot.game.Player;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-
+import org.telegram.telegrambots.ApiContext;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
+import org.telegram.telegrambots.generics.BotSession;
+import org.telegram.telegrambots.generics.LongPollingBot;
 
 public class Main implements Observer{
 
@@ -30,11 +32,14 @@ public class Main implements Observer{
         TelegramBotsApi botsApi = new TelegramBotsApi();
 
         try {
-            botsApi.registerBot(new MartianBot());
+            LongPollingBot bot = new MartianBot()/*.registerObserver(this)*/;
+            botsApi.registerBot(bot);
             System.out.println("Bot started!");
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+        
+
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
