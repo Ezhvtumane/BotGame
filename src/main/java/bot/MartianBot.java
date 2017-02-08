@@ -16,6 +16,7 @@ public class MartianBot extends TelegramLongPollingBot implements Observable  {
     private String botToken;
     private FileReader reader;
     private BufferedReader bufferedReader;
+    private boolean isGameStart;
 
 
     public MartianBot() {
@@ -72,6 +73,16 @@ public class MartianBot extends TelegramLongPollingBot implements Observable  {
             e.printStackTrace();
         }
     }
+    }
+    
+    public void handleUpdate(Update update){
+        if (update.hasMessage() && update.getMessage().hasText()){
+            if (update.getMessage().getText().equals("Start the game!") && !isGameStart)
+                //Начинаем игру
+            else if (isGameStart) //Продолжаем игру
+            else // дефолтный ввод
+                }
+            
     }
 
     @Override
