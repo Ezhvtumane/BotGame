@@ -26,7 +26,7 @@ public class Game {
         return imaginedNumber;
     }
 
-    public void generateImaginedNumber(/*int difficulty*/) {//генерируем псевдослучайное число
+    public Game generateImaginedNumber(/*int difficulty*/) {//генерируем псевдослучайное число
 
         if (difficulty == 1)
             this.imaginedNumber = (int)(Math.random() * 10);
@@ -36,6 +36,8 @@ public class Game {
             else
                 this.imaginedNumber = (int)(Math.random() * 1000);
         }
+        
+        return this;
     }
 
     public int gamePlay(int playerNumber) { // прошло число проверку или нет, и соответствующий вывод
