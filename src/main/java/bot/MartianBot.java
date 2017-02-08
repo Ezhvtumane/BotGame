@@ -7,19 +7,22 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 import java.io.*;
 import java.util.List;
+import java.util.LinkedList;
 
 public class MartianBot extends TelegramLongPollingBot implements Observable  {
 
-    private List<Observer> observers;
+    private List<Observer> observers = new LinkedList<Observer>();
     private String msg;
     private String botName;
     private String botToken;
     private FileReader reader;
     private BufferedReader bufferedReader;
     private boolean isGameStart;
-
+    private long chatId;
+    
 
     public MartianBot() {
+        
         File f = new File("creds");
 
         try{
@@ -56,7 +59,7 @@ public class MartianBot extends TelegramLongPollingBot implements Observable  {
      @Override
     public void onUpdateReceived(Update update) {
          // We check if the update has a message and the message has text
-    if (update.hasMessage() && update.getMessage().hasText()) {
+   /* if (update.hasMessage() && update.getMessage().hasText()) {
 
         SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
                 .setChatId(update.getMessage().getChatId())
@@ -72,17 +75,30 @@ public class MartianBot extends TelegramLongPollingBot implements Observable  {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-    }
+    }*/
+    handleUpdate(update);
     }
     
     public void handleUpdate(Update update){
         if (update.hasMessage() && update.getMessage().hasText()){
             if (update.getMessage().getText().equals("Start the game!") && !isGameStart)
-                //Начинаем игру
-            else if (isGameStart) //Продолжаем игру
-            else // дефолтный ввод
+                msg = update.getMessage().getText(); //Начинаем игру
+            else if (isGameStart) msg = update.getMessage().getText(); //Продолжаем игру
+            else msg = update.getMessage().getText(); // дефолтный ввод
                 }
-            
+    chatId = update.getMessage().getChatId();
+      notifyObserver();
+    }
+    
+    public void sndMsg(String mesg){
+        try {
+            SendMessage message = new SendMessage()
+            .setChatId(chatId)
+            .setText(mesg);
+            sendMessage(message); // Call method to send the message
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -108,7 +124,7 @@ public class MartianBot extends TelegramLongPollingBot implements Observable  {
     }
 
     @Override
-    public void notifyObserver(Observer o) {
-        for(Observer observer: observers) observer.update(msg);
+    public void notifyObserver() {
+        for(Observer observer: observers) observer.update(this.msg);
     }
 }

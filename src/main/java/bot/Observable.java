@@ -8,5 +8,5 @@ import bot.Observer;
 public interface Observable {
     void registerObserver(Observer o);
     void removeObserver(Observer o);
-    void notifyObserver(Observer o);
+    void notifyObserver();
 }

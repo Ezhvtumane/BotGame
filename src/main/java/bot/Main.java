@@ -32,7 +32,10 @@ public class Main {
         TelegramBotsApi botsApi = new TelegramBotsApi();
 
         try {
-            LongPollingBot bot = new MartianBot()/*.registerObserver(this)*/;
+            MartianBot mBot = new MartianBot();
+            GameInterface gI = new GameInterface(mBot);
+            mBot.registerObserver(gI);
+            LongPollingBot bot = mBot/*.registerObserver(this)*/;
             botsApi.registerBot(bot);
             System.out.println("Bot started!");
         } catch (TelegramApiException e) {
