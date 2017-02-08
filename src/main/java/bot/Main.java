@@ -13,7 +13,7 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.generics.BotSession;
 import org.telegram.telegrambots.generics.LongPollingBot;
 
-public class Main implements Observer{
+public class Main {
 
     public static boolean isInteger(String s){
         try{
@@ -101,8 +101,5 @@ public class Main implements Observer{
     }
 
 
-    @Override
-    public String update(String message) {
-        return message;
-    }
+    
 }
